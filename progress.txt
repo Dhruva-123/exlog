@@ -1,7 +1,0 @@
-Thus far:
-
-. Created a network that supposedly works for every single framework (but still doubtful of the range of its power)
-. Tested against SKlearn tree structures. Passed the test.
-. Need to test against Sklearn's SVMs and other models.
-. Need to test against other frameworks. 
-. 3-4 hours of testing and fixing might lead to working MVP.

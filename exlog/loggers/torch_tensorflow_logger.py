@@ -1,11 +1,22 @@
 import shap
 import warnings
-import torch
 import numpy as np
 from ..saver import log_saver
 
 def torch_tensorflow_logger(model, X, y, path, sample_size):
     framework = detect_framework(model)
+    if framework == "torch":
+        try:
+            import torch
+        except ImportError:
+            warnings.warn("'torch' is not installed. Run 'pip install mlexlog[torch]' to use this feature")
+            return None
+    if framework == "tensorflow":
+        try:
+            import tensorflow
+        except ImportError:
+            warnings.warn("'tensorflow' is not installed. Run 'pip install mlexlog[tensorflow]' to use this feature")
+            return None
     if hasattr(X, "values"):
         X_np = X.values 
     else:
@@ -33,7 +44,7 @@ def torch_tensorflow_logger(model, X, y, path, sample_size):
             warnings.warn(f"DeepExplainer failed for tensorflow: {e}, using KernelExplainer on a sample dataset instead...")
 
     if hasattr(model, "predict_proba"):
-        f = model.predict_proba(x)
+        f = model.predict_proba(X_sample)
     elif framework == "tensorflow":
         f = model.predict
     elif framework == "torch":
