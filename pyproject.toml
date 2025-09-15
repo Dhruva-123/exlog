@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mlexlog"
-version = "0.1.1"
+version = "0.1.2"
 description = "A one liner for ML explainability"
 authors = [{name = "Dhruva", email = "rahuldhruva.k9@gmail.com"}]
 readme = "README.md"
@@ -18,10 +18,6 @@ dependencies = [
     "xgboost>=1.7",
     "lightgbm>=4.0"
 ]
-
-[project.optional-dependencies]
-torch = ["torch>=2.0"]
-tensorflow = ["tensorflow>=2.15"]
 
 [project.urls]
 Homepage = "https://github.com/Dhruva-123/exlog"
