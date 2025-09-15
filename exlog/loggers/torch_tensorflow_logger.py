@@ -9,14 +9,14 @@ def torch_tensorflow_logger(model, X, y, path, sample_size):
         try:
             import torch
         except ImportError:
-            warnings.warn("'torch' is not installed. Run 'pip install mlexlog[torch]' to use this feature")
-            return None
+            warnings.warn("'torch' is not installed.")
+            return  log_saver("torch", None, None,None, None, path, family = None, task = None, import_error = True)
     if framework == "tensorflow":
         try:
             import tensorflow
         except ImportError:
-            warnings.warn("'tensorflow' is not installed. Run 'pip install mlexlog[tensorflow]' to use this feature")
-            return None
+            warnings.warn("'tensorflow' is not installed.")
+            return log_saver("tensorflow", None, None,None, None, path, family = None, task = None, import_error = True)
     if hasattr(X, "values"):
         X_np = X.values 
     else:

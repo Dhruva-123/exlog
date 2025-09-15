@@ -1,6 +1,5 @@
 ### Our core intention in this entire process is to figure out the type of model that we are dealing with, and then give the most optimal explaination for the given model.
 from pathlib import Path
-from .loggers import sklearn_logger, xgboost_logger, lightgbm_logger, torch_tensorflow_logger, default_logger
 
 ### We will first try to figure out the framework type with the help of python's __class__ and __module__ dunder attributes.
 def detect_framework(model):
@@ -22,13 +21,18 @@ def detect_framework(model):
 def log(model, X, y = None, path = "exlog.json", sample_size = 100):
     framework = detect_framework(model)
     if framework == "sklearn":
+        from .loggers import sklearn_logger
         return sklearn_logger(model, X, y, path, sample_size)
     elif framework == "xgboost":
+        from .loggers import xgboost_logger
         return xgboost_logger(model, X, y, path)
     elif framework == "lightgbm":
+        from .loggers import lightgbm_logger
         return lightgbm_logger(model, X, y, path)
     elif framework == "torch" or framework == "tensorflow":
+        from .loggers import torch_tensorflow_logger
         return torch_tensorflow_logger(model, X, y, path, sample_size)
     else:
+        from .loggers import default_logger
         print(f"The framework '{framework}' is not supported. Falling back to kernel explainer...")
         return default_logger(model, X , y, path, sample_size)      

@@ -6,8 +6,8 @@ def xgboost_logger(model, X, y, path):
     explainer = shap.TreeExplainer(model)
     shap_values = explainer(X)
     if is_classifier(model):
-        type_ = "classifier"
+        task = "classifier"
     if is_regressor(model):
-        type_ = "regressor"
-    return log_saver("xgboost", "TreeExplainer",model, shap_values, X, y, path,"tree" ,type_)
+        task = "regressor"
+    return log_saver("xgboost", "TreeExplainer",model, shap_values, X, y, path,"tree" ,task)
 
