@@ -3,6 +3,14 @@
 import shap
 from ..saver import log_saver
 
+### In order to apply the correct explainer of SHAP, we first have to indentify the kind of model we have in our hands
+### If we ended up in sklearn_logger, it means that no matter the model,  it belongs to the sklearn library. 
+### Sklearn has several types of models. Most important of those are:
+### 1. Linear, 2. Tree, 3. svm related models, 4. KNN related models, 5. Naive Bayes.
+### I created support for all the mentioned models.
+
+
+# What this function does is, it isolates the family (the kind of model) of the model, and the task it does (regression or classification).
 def model_type(model):
         output = [None]*2
         name = model.__class__.__name__.lower()
@@ -30,11 +38,13 @@ def model_type(model):
 
 
 def sklearn_logger(model, X, y, path, sample_size):
+        ### We are using the function we created earlier to extract the neccesarry information.
         explainer_name = None
         output = model_type(model)
         family = output[0]
         task = output[1]
 
+        # Depending upon the extracted information, we are attempting to use the correct SHAP explainer in play. We also added a default case error handling line that ensures we cover all the edge cases.
         if family == "linear":
                 explainer = shap.Explainer(model , X)
                 shap_values = explainer(X)
@@ -54,5 +64,6 @@ def sklearn_logger(model, X, y, path, sample_size):
                 shap_values = explainer(sample)
         else:
                 raise ValueError(f"Unsupported model type: {family}")
+        # All the extracted information is then passed into the log_saver function that we imported from the "saver.py" file. 
         return log_saver("sklearn", explainer_name, model, shap_values, X , y, path, family, task)
 

@@ -4,6 +4,7 @@ import numpy as np
 from ..saver import log_saver
 
 def torch_tensorflow_logger(model, X, y, path, sample_size):
+    # Here, our core intention is to make sure that tensorflow models are treated as tensorflow and torch models are treated as torch models.
     framework = detect_framework(model)
     if framework == "torch":
         try:
