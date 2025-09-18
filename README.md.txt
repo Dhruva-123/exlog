@@ -59,7 +59,7 @@ Example Output:
 Here is how to install it:
 
 Open command prompt(windows) or powershell(windows) or terminal(mac) and type this out:
-	pip install exlog
+	pip install mlexlog
 
 
 Supported Frameworks
