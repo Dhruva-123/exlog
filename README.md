@@ -5,15 +5,15 @@ Why exlog?
 
 Without exlog:
 
-import shap, json, numpy as np
-from sklearn.ensemble import RandomForestClassifier
+```import shap, json, numpy as np
+from sklearn.ensemble import RandomForestClassifier```
 
 # This is your model training phase
-model = RandomForestClassifier().fit(X_train, y_train)
+```model = RandomForestClassifier().fit(X_train, y_train)```
 
 # Here, the user has to carefully choose a proper explainer and this 	requires a fair bit of knowledge on SHAP.
 
-explainer = shap.TreeExplainer(model)
+```explainer = shap.TreeExplainer(model)
 shap_values = explainer(X_test)
 
 logs = []
@@ -30,22 +30,22 @@ record = {
 "Explanation": shap_values.values[i].tolist(),
 "Prediction State": bool(pred == y_test[i]),
 }
-logs.append(record)
+logs.append(record)```
 
 #This is your json saver
-with open("logs.json", "w") as f:
-json.dump(logs, f, indent=2)
+```with open("logs.json", "w") as f:
+json.dump(logs, f, indent=2)```
 
 With exlog:
 
-from exlog import log
+```from exlog import log
 model = RandomForestClassifier().fit(X_train, y_train)
-log(model, X_test, y_test, path="logs.json")
+log(model, X_test, y_test, path="logs.json")```
 
 This results in a reduction of both time and errors during logging which is useful for both novice and experienced ML devs.
 
 Example Output:
-[
+```[
   {
     "framework": "sklearn",
     "Explainer": "TreeExplainer",
@@ -54,7 +54,7 @@ Example Output:
     "Explanation": [0.01, -0.03, 0.07, ...],
     "Prediction State": true
   }
-]
+]```
 
 Here is how to install it:
 
