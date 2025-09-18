@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mlexlog"
-version = "0.1.2"
+version = "0.1.4"
 description = "A one liner for ML explainability"
 authors = [{name = "Dhruva", email = "rahuldhruva.k9@gmail.com"}]
 readme = "README.md"

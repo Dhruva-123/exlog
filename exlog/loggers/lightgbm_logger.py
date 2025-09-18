@@ -11,6 +11,8 @@ def lightgbm_logger(model, X, y, path):
     shap_values = explainer(X)
     if is_classifier(model):
         task = "classifier"
-    if is_regressor(model):
+    elif is_regressor(model):
         task = "regressor"
+    else:
+        task = "Unknown"
     return log_saver("lightgbm","TreeExplainer",model, shap_values, X, y, path, "tree" ,task)

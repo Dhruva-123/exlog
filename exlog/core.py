@@ -4,7 +4,6 @@ from pathlib import Path
 ### We will first try to figure out the framework type with the help of python's __class__ and __module__ dunder attributes.
 def detect_framework(model):
     cls = model.__class__.__module__.lower()
-    print(cls)
     if "xgboost" in cls:
         return "xgboost"
     if "lightgbm" in cls:
